@@ -52,7 +52,7 @@ export default defineComponent({
     <div class="page-meetup">
       <!-- meetup view -->
       <ui-container v-if="errorMes">
-        <ui-alert>Test Error</ui-alert>
+        <ui-alert>{{ errorMes }}</ui-alert>
       </ui-container>
       <ui-container v-else-if="!meetup">
         <ui-alert>Загрузка...</ui-alert>
