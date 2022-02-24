@@ -1,14 +1,27 @@
 <template>
-  <div class="form-group">
+  <div :class="{ 'form-group_inline': inline }" class="form-group">
     <!-- form-group_inline -->
-    <label class="form-group__label">label text</label>
+    <label v-if="label" class="form-group__label"> {{ label }} </label>
     <!-- CONTENT -->
+    <slot />
   </div>
 </template>
 
 <script>
+import UiContainer from './UiContainer.vue';
 export default {
   name: 'UiFormGroup',
+  components: { UiContainer },
+
+  props: {
+    inline: {
+      type: Boolean,
+      default: false,
+    },
+    label: {
+      type: String,
+    },
+  },
 };
 </script>
 
