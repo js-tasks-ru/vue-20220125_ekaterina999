@@ -1,13 +1,8 @@
 <template>
   <div class="toasts">
-    <template v-for="toast in toasts" :key="toast.message">
-      <div v-if="toast.show && toast.type === 'success'" class="toast toast_success">
-        <ui-icon class="toast__icon" icon="check-circle" />
-        <span>{{ toast.message }}</span>
-      </div>
-
-      <div v-else-if="toast.show && toast.type === 'error'" class="toast toast_error">
-        <ui-icon class="toast__icon" icon="alert-circle" />
+    <template v-for="toast in toasts" :key="toast.id">
+      <div :class="toast.type == 'success' ? 'toast toast_success' : 'toast toast_error'">
+        <ui-icon class="toast__icon" :icon="toast.type == 'success' ? 'check-circle' : 'alert-circle'" />
         <span>{{ toast.message }}</span>
       </div>
     </template>
@@ -35,9 +30,12 @@ export default {
         id: this.id,
         message: message,
         type: 'error',
-        show: true,
       });
-      setTimeout(this.setTime, 5000, this.id);
+
+      setTimeout(() => {
+        this.toasts.shift();
+      }, 5000);
+
       this.id++;
     },
 
@@ -46,14 +44,13 @@ export default {
         id: this.id,
         message: message,
         type: 'success',
-        show: true,
       });
-      setTimeout(this.setTime, 5000, this.id);
-      this.id++;
-    },
 
-    setTime(toastId) {
-      this.toasts[toastId].show = false;
+      setTimeout(() => {
+        this.toasts.shift();
+      }, 5000);
+
+      this.id++;
     },
   },
 };
